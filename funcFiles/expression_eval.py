@@ -1,4 +1,4 @@
-from calc_func import sin, cos, tan, asin, acos, atan, fact, add, sub, mul, div, log, exp, toDeg, toRad, e
+from funcFiles.calc_func import sin, cos, tan, asin, acos, atan, fact, add, sub, mul, div, log, exp, toDeg, toRad, e
 
 func_dict_oneVal = {"sin": sin, "cos": cos, "tan": tan, "asin": asin, "acos": acos, "atan": atan, "!": fact, "log": log}
 func_dict_twoVal = {"^": exp, "/": div, "*": mul, "+": add, "-": sub}
