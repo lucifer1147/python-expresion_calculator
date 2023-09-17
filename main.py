@@ -18,8 +18,17 @@ class Expression:
 
         self.expression_ = expression
 
-    def get_expression_list(self):
-        return self.expression_
+    def get_inner_expr(self, expressionLi: list = None):
+        if expressionLi is None:
+            expressionLi = self.expression_
+
+        self.innerExprOrg = innermost_expr_maker(expressionLi)
+        if self.innerExprOrg[0] == "(" and self.innerExprOrg[-1] == ")":
+            self.innerExpr = self.innerExprOrg[1:-1]
+        else:
+            self.innerExpr = self.innerExprOrg
+
+        return self.innerExpr
 
     def __len__(self):
         return len(self.expression_)
@@ -27,17 +36,12 @@ class Expression:
 
 while True:
     exprMade = Expression(exprMade)
-    innerExpr = innermost_expr_maker(exprMade.get_expression_list())
+    innerExpr = exprMade.get_inner_expr(exprMade.expression_)
 
-    if innerExpr[0] == "(" and innerExpr[-1] == ")":
-        innerExprN = innerExpr[1:-1]
-    else:
-        innerExprN = innerExpr
-
-    res = str(expression_eval(innerExprN))
+    res = str(expression_eval(innerExpr))
     if len(exprMade) > 1:
-        exprMade = list(" ".join(exprMade.get_expression_list()).replace(" ".join(innerExpr), str(res)).split(" "))
+        exprMade = list(" ".join(exprMade.expression_).replace(" ".join(exprMade.innerExprOrg), str(res)).split(" "))
     else:
         break
 
-print("Result:", innerExprN[0])
+print("Result:", innerExpr[0])
