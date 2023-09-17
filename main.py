@@ -8,15 +8,17 @@ print("The Expression you inputted:", "".join(exprMade)[1:-1])
 
 while True:
     exprMade = Expression(exprMade)
-    innerExpr = exprMade.get_inner_expr()
-    res = exprMade.get_inner_expr_result()
+    exprMade.get_inner_expr()
+    exprMade.get_inner_expr_result()
+
     exprMadeReplaced = exprMade.get_replaced_expression()
+    exprMade = exprMadeReplaced
+
+    result = exprMadeReplaced[0]
 
     if len(exprMadeReplaced) > 1:
-        exprMade = exprMadeReplaced
         continue
     else:
-        result = exprMadeReplaced[0]
         break
 
 print("Result:", result)

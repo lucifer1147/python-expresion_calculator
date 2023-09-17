@@ -21,13 +21,14 @@ def expression_eval(innerExpr: list):
     else:
         currExpr = innerExpr
 
-    while len(currExpr) > 1:
-        for item in list(func_dict_twoVal.keys()):
+    for item in list(func_dict_twoVal.keys()):
+        for i in range(len(currExpr)):
             if item in currExpr:
                 idx = currExpr.index(item)
                 currExpr.insert(idx-1, func_dict_twoVal[item](float(currExpr[idx-1]), float(currExpr[idx+1])))
                 for _ in range(3):
                     currExpr.pop(idx)
+
 
     res = currExpr[0]
 
