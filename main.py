@@ -1,8 +1,8 @@
 from funcFiles.expression_maker import expr_maker, innermost_expr_maker
 from funcFiles.expression_eval import expression_eval
 
-input = str(input("Enter The Expression: "))
-expr = f"({input})"
+inp = str(input("Enter The Expression: "))
+expr = f"({inp})"
 exprMade = expr_maker(expr, oprLi=["+", "-", "/", "*", "(", ")", "^"])
 print("The Expression you inputted:", "".join(exprMade)[1:-1])
 
