@@ -22,13 +22,20 @@ class Expression:
         if expressionLi is None:
             expressionLi = self.expression_
 
-        self.innerExprOrg = innermost_expr_maker(expressionLi)
-        if self.innerExprOrg[0] == "(" and self.innerExprOrg[-1] == ")":
-            self.innerExpr = self.innerExprOrg[1:-1]
+        self.innerExprOrg_ = innermost_expr_maker(expressionLi)
+        if self.innerExprOrg_[0] == "(" and self.innerExprOrg_[-1] == ")":
+            self.innerExpr_ = self.innerExprOrg_[1:-1]
         else:
-            self.innerExpr = self.innerExprOrg
+            self.innerExpr_ = self.innerExprOrg_
 
-        return self.innerExpr
+        return self.innerExpr_
+
+    def get_inner_expr_result(self, innerExpression: list = None):
+        if innerExpression is None:
+            innerExpression = self.innerExpr_
+
+        self.result_ = str(expression_eval(innerExpression))
+        return self.result_
 
     def __len__(self):
         return len(self.expression_)
@@ -36,11 +43,11 @@ class Expression:
 
 while True:
     exprMade = Expression(exprMade)
-    innerExpr = exprMade.get_inner_expr(exprMade.expression_)
+    innerExpr = exprMade.get_inner_expr()
+    res = exprMade.get_inner_expr_result()
 
-    res = str(expression_eval(innerExpr))
     if len(exprMade) > 1:
-        exprMade = list(" ".join(exprMade.expression_).replace(" ".join(exprMade.innerExprOrg), str(res)).split(" "))
+        exprMade = list(" ".join(exprMade.expression_).replace(" ".join(exprMade.innerExprOrg_), str(res)).split(" "))
     else:
         break
 
