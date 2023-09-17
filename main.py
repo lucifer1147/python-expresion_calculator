@@ -1,29 +1,22 @@
-from funcFiles.expression_maker import expr_maker, innermost_expr_maker
-from funcFiles.expression_eval import expression_eval
+from funcFiles.expression_maker import expr_maker
+from funcFiles.expressionClass import Expression
 
 inp = str(input("Enter The Expression: "))
 expr = f"({inp})"
 exprMade = expr_maker(expr, oprLi=["+", "-", "/", "*", "(", ")", "^"])
 print("The Expression you inputted:", "".join(exprMade)[1:-1])
 
-for i in range(len(exprMade)):
-    try:
-        exprMade.remove("")
-    except ValueError:
-        break
-
 while True:
-    innerExpr = innermost_expr_maker(exprMade)
+    exprMade = Expression(exprMade)
+    innerExpr = exprMade.get_inner_expr()
+    res = exprMade.get_inner_expr_result()
+    exprMadeReplaced = exprMade.get_replaced_expression()
 
-    if innerExpr[0] == "(" and innerExpr[-1] == ")":
-        innerExprN = innerExpr[1:-1]
+    if len(exprMadeReplaced) > 1:
+        exprMade = exprMadeReplaced
+        continue
     else:
-        innerExprN = innerExpr
-
-    res = str(expression_eval(innerExprN))
-    if len(exprMade) > 1:
-        exprMade = list(" ".join(exprMade).replace(" ".join(innerExpr), str(res)).split(" "))
-    else:
+        result = exprMadeReplaced[0]
         break
 
-print("Result:", innerExprN[0])
+print("Result:", result)
