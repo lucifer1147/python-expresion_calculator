@@ -37,6 +37,17 @@ class Expression:
         self.result_ = str(expression_eval(innerExpression))
         return self.result_
 
+    def get_replaced_expression(self, expression: list = None, innerExprOriginal: list = None, result: str = None):
+        if expression is None:
+            expression = self.expression_
+        if innerExprOriginal is None:
+            innerExprOriginal = self.innerExprOrg_
+        if result is None:
+            result = self.result_
+
+        self.replaced_expression_ = list(" ".join(expression).replace(" ".join(innerExprOriginal), result).split(" "))
+        return self.replaced_expression_
+
     def __len__(self):
         return len(self.expression_)
 
@@ -45,10 +56,13 @@ while True:
     exprMade = Expression(exprMade)
     innerExpr = exprMade.get_inner_expr()
     res = exprMade.get_inner_expr_result()
+    exprMadeReplaced = exprMade.get_replaced_expression()
 
-    if len(exprMade) > 1:
-        exprMade = list(" ".join(exprMade.expression_).replace(" ".join(exprMade.innerExprOrg_), str(res)).split(" "))
+    if len(exprMadeReplaced) > 1:
+        exprMade = exprMadeReplaced
+        continue
     else:
+        result = exprMadeReplaced[0]
         break
 
-print("Result:", innerExpr[0])
+print("Result:", result)
