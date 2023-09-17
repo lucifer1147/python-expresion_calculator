@@ -41,7 +41,7 @@ def expression_eval(innerExpr: list):
                 res = func_dict_oneVal['!'](float(res))
             else:
                 try:
-                    base = float(innerExpr[oneValExpr["log"]][-1])
+                    base = float(innerExpr[oneValExpr["log"]][3:])
                 except ValueError:
                     base = e
                 res = func_dict_oneVal[oneValOpr](float(res), base)
